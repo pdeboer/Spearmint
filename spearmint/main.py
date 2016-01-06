@@ -286,7 +286,7 @@ def main():
                 suggested_job = get_suggestion(chooser, resource.tasks, db, expt_dir, options, resource_name)
 
                 jobs_since_min = db.numJobsSinceMin(experiment_name)
-                print "current min %d jobs since min %d" % (db.minBranin(experiment_name), jobs_since_min)
+                print "current min %d. jobs since min %d" % (db.minBranin(experiment_name), jobs_since_min)
 
                 if(jobs_since_min > 20):
                     print "more than 20 jobs since min encountered. exiting."
