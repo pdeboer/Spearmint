@@ -285,11 +285,15 @@ def main():
                 # Get a suggestion for the next job
                 suggested_job = get_suggestion(chooser, resource.tasks, db, expt_dir, options, resource_name)
 
-                if suggested_job['id'] >= 1000:
+                jobs_since_min = db.numJobsSinceMin(experiment_name)
+                print "current min %d jobs since min %d" % (db.minBranin(experiment_name), jobs_since_min)
+
+                if(jobs_since_min > 20):
+                    print "more than 20 jobs since min encountered. exiting."
+                    return
+                elif suggested_job['id'] >= 1000:
                     print "did 1000 iterations. dying now"
                     return
-
-                print "current min %d jobs since min %d" % (db.minBranin(experiment_name), db.numJobsSinceMin(experiment_name))
 
                 # Submit the job to the appropriate resource
                 process_id = resource.attemptDispatch(experiment_name, suggested_job, db_address, expt_dir)
