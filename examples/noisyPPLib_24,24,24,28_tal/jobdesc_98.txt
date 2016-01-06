@@ -1,5 +1,0 @@
-/maxIterations VALUE 30
-/confidence VALUE 0.85
-/k VALUE 3
-/workerCount VALUE 1
-baseclass VALUE ch.uzh.ifi.pdeboer.pplib.process.stdlib.ContestWithBeatByKVotingProcess

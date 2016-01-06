@@ -1,6 +1,6 @@
 {
   "language": "PYTHON",
-  "experiment-name": "noisyPPLib_24,24,24,28_tal",
+  "experiment-name": "noisyPPLib_1,1,1,97_tal",
   "polling-time": 1,
   "resources": {
     "my-machine": {
@@ -10,7 +10,7 @@
     }
   },
   "database" : {
-    "address" : "localhost:27028"
+    "address" : "localhost:27097"
   },
   "tasks": {
     "branin": {

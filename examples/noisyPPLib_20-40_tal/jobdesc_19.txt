@@ -1,5 +1,0 @@
-/maxIterations VALUE 28
-/confidence VALUE 0.8
-/k VALUE 7
-/workerCount VALUE 3
-baseclass VALUE ch.uzh.ifi.pdeboer.pplib.process.stdlib.ContestWithStatisticalReductionProcess
