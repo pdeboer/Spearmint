@@ -33,6 +33,14 @@ def main(job_id, params):
     floatString = consoleString[consolePrefix:len(consoleString) - consolePrefix]
     print "got float string " + floatString
     #return {'branin': float(floatString)}
+
+
+    costLine = lines[len(lines) - 4]
+    linePrefix = "[0m[[0minfo[0m] [0mcost was "
+    print "process cost was " + costLine[len(linePrefix):len(costLine) - len(" [0m")]
+
+
+
     return float(floatString)
 
 #return branin(params['/maxIterations'], params['/confidence'], params['/k'], params['/workerCount'])

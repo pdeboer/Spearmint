@@ -25,13 +25,19 @@ def main(job_id, params):
     print output
     print "interpreting.."
 
-
     lines = string.split(output, "\n")
     relevantLine = lines[len(lines) - 3]
     consoleString = string.split(relevantLine, " ")[1]
     consolePrefix = len("\x1b[0m")
     floatString = consoleString[consolePrefix:len(consoleString) - consolePrefix]
     print "got float string " + floatString
+
+
+    costLine = lines[len(lines) - 4]
+    linePrefix = "[0m[[0minfo[0m] [0mcost was "
+    print "process cost was " + costLine[len(linePrefix):len(costLine) - len(" [0m")]
+
+
     #return {'branin': float(floatString)}
     return float(floatString)
 
