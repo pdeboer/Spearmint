@@ -33,7 +33,7 @@ def main(job_id, params):
     floatString = consoleString[consolePrefix:len(consoleString) - consolePrefix]
 
     costLine = lines[len(lines) - 4]
-    linePrefix = "[0m[[0minfo[0m] [0mcost was "
+    linePrefix = "[0m[[0minfo[0m] [0mcost was"
     print "process cost was " + costLine[len(linePrefix):len(costLine) - len(" [0m")]
 
     print "got float string " + floatString

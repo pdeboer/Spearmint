@@ -36,7 +36,7 @@ def main(job_id, params):
 
 
     costLine = lines[len(lines) - 4]
-    linePrefix = "[0m[[0minfo[0m] [0mcost was "
+    linePrefix = "[0m[[0minfo[0m] [0mcost was"
     print "process cost was " + costLine[len(linePrefix):len(costLine) - len(" [0m")]
 
 
