@@ -2,43 +2,21 @@ import numpy as np
 import math
 import subprocess
 import string
-# Write a function like this called 'main'
+import random
+import sys
+
 def main(job_id, params):
-    print 'Anything printed here will end up in the output directory for job #%d' % job_id
-    print params
-
-    target = open("jobdesc_%d.txt" % job_id, 'w')
-    target.write("/maxIterations VALUE "+str(params["/maxIterations"][0])+"\n")
-    target.write("/confidence VALUE "+str(params["/confidence"][0])+"\n")
-    target.write("/k VALUE "+str(params["/k"][0])+"\n")
-    target.write("/workerCount VALUE "+str(params["/workerCount"][0])+"\n")
-    target.write("baseclass VALUE "+params["baseclass"][0])
-    target.close()
-
-    cmd = 'cd /Users/pdeboer/Documents/phd_local/PPLib && sbt "run-main ch.uzh.ifi.pdeboer.pplib.examples.optimization.MCOptimize /Users/pdeboer/Documents/phd_local/Spearmint/examples/noisyPPLib_avalon/jobdesc_'+str(job_id)+'.txt answers20,20,20,40"'
-    print "will execute "+cmd
-    p = subprocess.Popen(['/bin/bash', '-c', cmd], stdout=subprocess.PIPE)
+    cmdParams = {item:params[item][0] for item in params.keys()}
+    cmd = "python mysqlfunc.py \"%s\"" % cmdParams
+    print "executing %s" % cmd
+    p = subprocess.Popen(['/bin/bash', '-lc', cmd], stdout=subprocess.PIPE)
     p.wait()
     output = p.stdout.read()
     p.stdout.close()
-    print "process output was:"
+
     print output
-    print "interpreting.."
-
-
     lines = string.split(output, "\n")
-    relevantLine = lines[len(lines) - 3]
-    consoleString = string.split(relevantLine, " ")[1]
-    consolePrefix = len("\x1b[0m")
-    floatString = consoleString[consolePrefix:len(consoleString) - consolePrefix]
 
-    print "got float string " + floatString
-
-    costLine = lines[len(lines) - 4]
-    linePrefix = "[0m[[0minfo[0m] [0mcost was "
-    print "process cost was " + costLine[len(linePrefix):len(costLine) - len(" [0m")]
-
-    #return {'branin': float(floatString)}
-    return float(floatString)
-
-#return branin(params['/maxIterations'], params['/confidence'], params['/k'], params['/workerCount'])
+    retValue = float(lines[len(lines) - 2])
+    print "returning %s" % retValue
+    return retValue

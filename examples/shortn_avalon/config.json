@@ -1,6 +1,6 @@
 {
   "language": "PYTHON",
-  "experiment-name": "noisyPPLib_avalon1",
+  "experiment-name": "shortn_avalon",
   "polling-time": 1,
   "resources": {
     "my-machine": {
@@ -20,47 +20,38 @@
     }
   },
   "variables": {
-    "/maxIterations": {
-      "type": "INT",
-      "size": 1,
-      "min"  : 20,
-      "max"  : 30
-    },
-    "/confidence": {
+    "hasFinder": {
       "type": "ENUM",
       "size": 1,
       "options": [
-        "0.95",
-        "0.8",
-        "0.75",
-        "None",
-        "1.0",
-        "0.7",
-        "0.9",
-        "0.65",
-        "0.85"
+        "1", "0"
       ]
     },
-    "/k": {
-      "type": "INT",
-      "size": 1,
-      "min"  : 1,
-      "max"  : 10
-    },
-    "/workerCount": {
-      "type": "INT",
-      "size": 1,
-      "min"  : 1,
-      "max"  : 10
-    },
-    "baseclass": {
+    "collector": {
       "type": "ENUM",
       "size": 1,
       "options": [
-        "ch.uzh.ifi.pdeboer.pplib.process.stdlib.ContestWithStatisticalReductionProcess",
-        "ch.uzh.ifi.pdeboer.pplib.process.stdlib.ContestWithBeatByKVotingProcess",
-        "ch.uzh.ifi.pdeboer.pplib.process.stdlib.Contest"
+        "Collection", "CollectionWithSigmaPruning", "IterativeRefinement"
       ]
+    },
+    "collector_workers": {
+      "type": "INT",
+      "size": 1,
+      "min"  : 2,
+      "max"  : 3
+    },
+    "decider": {
+      "type": "ENUM",
+      "size": 1,
+      "options": [
+        "Contest", "BeatByK", "Statistical"
+      ]
+    },
+    "decider_workers": {
+      "type": "INT",
+      "size": 1,
+      "min"  : 2,
+      "max"  : 3
     }
   }
 }
