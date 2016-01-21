@@ -31,7 +31,7 @@
       "type": "ENUM",
       "size": 1,
       "options": [
-        "Collection", "CollectionWithSigmaPruning", "IterativeRefinement"
+        "Collection", "CollectionWithSigmaPruning", "DualPathwayProcess", "IterativeRefinement"
       ]
     },
     "collector_workers": {

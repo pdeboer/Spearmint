@@ -16,23 +16,23 @@ def appendWhereClause(statement, paramlist, targetParam):
     return (statement + (" AND %s = %s" % targetParam))
 
 
-def pickRandomID(ids,conn):
+def pickRandomID(ids,conn, params):
     targetIndex = random.randint(0, len(ids) - 1)
     targetId = ids[targetIndex]
     print "selected id %i" % targetId
 
     cursor = conn.cursor()
 
-    cursor.execute("select id from python_used_ids where id = %s", targetId)
+    cursor.execute("select id from python_used_ids where id = %s and usedForProcess = %s", (targetId, str(params)))
     if (len(list(cursor)) > 0):
         print "id %i was already used. Selecting a new one " % (targetId)
         if(len(ids) == 1):
             return -1
         else:
             del ids[targetIndex]
-            return pickRandomID(ids, conn)
+            return pickRandomID(ids, conn, params)
     else:
-        cursor.execute("insert into python_used_ids (id) VALUES (%s)", targetId)
+        cursor.execute("insert into python_used_ids (id, usedForProcess, step) SELECT %s as c1, %s as c2, count(*)+1 as c3 from python_used_ids", (targetId, str(params)))
         conn.commit()
         return targetId
 
@@ -54,7 +54,7 @@ def fitNormalAndDrawLenAndCostSample(ids, conn):
 
     sampleLen = np.random.normal(muLen, sigmaLen, 1)
     sampleCost = np.random.normal(np.mean(costList), np.std(costList), 1)
-    return (sampleLen, sampleCost)
+    return (sampleLen[0], sampleCost[0])
 
 
 
@@ -95,7 +95,7 @@ def main(params):
         print targetId
 
     foundIds = list(cursor)
-    targetId = pickRandomID(copy.deepcopy(foundIds), connection)
+    targetId = pickRandomID(copy.deepcopy(foundIds), connection, params)
 
     (resultLength, cost) = getLenAndCostOfId(targetId, connection) if(targetId > -1) else fitNormalAndDrawLenAndCostSample(foundIds, connection)
 

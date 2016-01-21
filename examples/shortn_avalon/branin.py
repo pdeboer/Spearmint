@@ -17,6 +17,6 @@ def main(job_id, params):
     print output
     lines = string.split(output, "\n")
 
-    retValue = float(lines[len(lines) - 2])
+    retValue = float(lines[len(lines) - 2].strip())
     print "returning %s" % retValue
     return retValue
