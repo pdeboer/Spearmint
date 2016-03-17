@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 # Spearmint
 #
 # Academic and Non-Commercial Research Use Software License and Terms
@@ -188,8 +189,14 @@ import importlib
 import time
 import os
 
-import numpy as np
+#add pythonpath
+filepath = os.path.realpath(__file__)
+sys.path.append(os.path.dirname(filepath))
+sys.path.append(os.path.abspath( os.path.join(os.path.dirname(filepath), os.pardir) ))
+print("using path %s" % sys.path)
 
+
+import numpy as np
 try: import simplejson as json
 except ImportError: import json
 
