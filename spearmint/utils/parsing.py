@@ -226,7 +226,6 @@ def parse_db_address(cfg):
     
     db_address = os.getenv('SPEARMINT_DB_ADDRESS')
     if db_address is None:
-        print cfg
         if 'database' in cfg and 'address' in cfg['database']:
             db_address = cfg['database']['address']
         else:
